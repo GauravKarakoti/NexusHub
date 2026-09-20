@@ -1,0 +1,31 @@
+// TODO 1: Define the database schema for the application
+// Contributors should add relations, constraints, and additional fields.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  // TODO 2: Add standard user fields (email, name, password hash, role)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // TODO 3: Add relations to Project, Task, and Comment models
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  // TODO 4: Add project details (name, description, status, ownerId)
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id        String   @id @default(uuid())
+  // TODO 5: Add task specifics (title, description, status, priority, assigneeId, projectId)
+}
