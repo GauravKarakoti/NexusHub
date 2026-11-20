@@ -1,6 +1,6 @@
 import "./globals.css";
-// TODO 1: Implement Auth Provider wrapper
-// TODO 2: Implement Socket Provider wrapper
+import Providers from "./providers";
+import Navbar from "../components/Navbar";
 
 export const metadata = {
   title: "NexusHub",
@@ -15,9 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* TODO 3: Wrap children in SessionProvider and SocketProvider */}
-        {/* TODO 4: Add global navigation bar / sidebar layout container */}
-        <main>{children}</main>
+        <Providers>
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+          </div>
+        </Providers>
       </body>
     </html>
   );
