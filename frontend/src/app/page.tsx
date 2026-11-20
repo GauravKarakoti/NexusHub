@@ -1,24 +1,38 @@
-export default function Home() {
+import { getServerSession } from "next-auth";
+import Button from "../components/Button";
+
+export default async function Home() {
+  const session = await getServerSession();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-      <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to NexusHub</h1>
+      <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        Welcometo NexusHub
+      </h1>
       <p className="text-lg text-gray-600 mb-8">
         The open-source collaboration platform.
       </p>
-      
-      {/* TODO 1: Implement conditional rendering based on authentication state */}
-      {/* If authenticated: Render Dashboard redirect or summary */}
-      {/* If unauthenticated: Render Login/Signup CTAs */}
-      
-      <div className="space-x-4">
-        {/* TODO 2: Build reusable Button components */}
-        <button className="px-6 py-2 bg-blue-600 text-white rounded-md">
-          Get Started
-        </button>
-        <button className="px-6 py-2 bg-white text-blue-600 border border-blue-600 rounded-md">
-          Learn More
-        </button>
-      </div>
+
+      {session ? (
+        <div className="space-y-4 text-center">
+          <p className="text-gray-700">
+            Signed in as {session.user?.name ?? session.user?.email}
+          </p>
+          <Button href="/api/auth/signout" variant="secondary">
+            Sign out
+          </Button>
+        </div>
+      ) : (
+        <div className="space-x-4">
+          <Button href="/api/auth/signin">Get Started</Button>
+          <Button
+            href="https://github.com/GauravKarakoti/NexusHub"
+            variant="secondary"
+          >
+            Learn More
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
